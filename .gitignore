@@ -1,0 +1,13 @@
+images
+.env
+space_instag.checkpoint
+whitelist.txt
+unfollowed.txt
+skipped.txt
+instabot.log
+friends.txt
+followed.txt
+cookie.txt
+comments.txt
+blacklist.txt
+.idea
