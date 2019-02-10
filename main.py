@@ -7,7 +7,6 @@ import requests
 from pprint import pprint
 
 
-
 def main():
     bot = init_bot()
     link = get_link_from_arg()
@@ -25,6 +24,7 @@ def get_users_to_giveaway(users_tagged_friends, post_likers, author_followers):
         if post_likers.count(str(user['pq'])) and author_followers.count(str(user['pq'])):
             users.append((user['pk'], user['username']))
     return users
+
 
 def get_users_author_followers(bot, link):
     author = get_author(link)
@@ -66,12 +66,9 @@ def get_users_tagged_friends(bot, post_id):
     comments = bot.get_media_comments_all(media_id=post_id)
     list_of_users = []
     set_of_username = set()
-    br = 0
     users_exist = 0
     number_of_friend_needed = 2
     for comment in comments:
-        if br >= 25:
-            return list_of_users
         if not comment['user']['username'] in set_of_username:
             users = get_users_from_comment(comment['text'])
             for user in users:
@@ -80,7 +77,6 @@ def get_users_tagged_friends(bot, post_id):
             if users_exist >= number_of_friend_needed:
                 list_of_users.append(comment['user'])
                 set_of_username.add(comment['user']['username'])
-                br += 1
     return list_of_users
 
 
