@@ -11,7 +11,8 @@ def main():
     bot = init_bot()
     link = get_link_from_arg()
     post_id = bot.get_media_id_from_link(link=link)
-    users_tagged_friends = get_users_tagged_friends(bot, post_id)
+    number_of_friends_needed = 2
+    users_tagged_friends = get_users_tagged_friends(bot, post_id, number_of_friends_needed)
     post_likers = bot.get_media_likers(post_id)
     author_followers = get_users_author_followers(bot, link)
     users = get_users_to_giveaway(users_tagged_friends, post_likers, author_followers)
@@ -59,19 +60,18 @@ def is_user_exist(bot, username):
     return user_id is not None
 
 
-def get_users_tagged_friends(bot, post_id):
+def get_users_tagged_friends(bot, post_id, number_of_friends_needed=2):
     comments = bot.get_media_comments_all(media_id=post_id)
     list_of_users = []
     set_of_username = set()
     users_exist = 0
-    number_of_friend_needed = 2
     for comment in comments:
         if not comment['user']['username'] in set_of_username:
             users = get_users_from_comment(comment['text'])
             for user in users:
                 if is_user_exist(bot, user):
                     users_exist += 1
-            if users_exist >= number_of_friend_needed:
+            if users_exist >= number_of_friends_needed:
                 list_of_users.append(comment['user'])
                 set_of_username.add(comment['user']['username'])
     return list_of_users
