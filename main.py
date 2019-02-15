@@ -68,10 +68,10 @@ def get_users_tagged_friends(bot, post_id, number_of_friends_needed=2):
     comments = bot.get_media_comments_all(media_id=post_id)
     list_of_users = []
     set_of_usernames = set()
-    users_exist = 0
     for comment in comments:
         if not comment['user']['username'] in set_of_usernames:
             users = get_users_from_comment(comment['text'])
+            users_exist = 0
             for user in users:
                 if is_user_exist(bot, user):
                     users_exist += 1
