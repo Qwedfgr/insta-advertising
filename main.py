@@ -48,6 +48,10 @@ def init_bot():
 
 
 def get_users_from_comment(comment, all=True):
+    """
+    The RegEx taken from article
+    https://blog.jstassen.com/2016/03/code-regex-for-instagram-username-and-hashtags/
+    """
     pattern = '(?:@)([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\.(?!\.))){0,28}(?:[A-Za-z0-9_]))?)'
     if all:
         return re.findall(pattern, comment)
