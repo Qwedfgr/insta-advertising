@@ -22,7 +22,7 @@ def main():
 def get_users_to_giveaway(users_tagged_friends, post_likers, author_followers):
     users = []
     for user in users_tagged_friends:
-        if post_likers.count(str(user['pq'])) and author_followers.count(str(user['pq'])):
+        if post_likers.count(str(user['pk'])) and author_followers.count(str(user['pk'])):
             users.append((user['pk'], user['username']))
     return users
 
