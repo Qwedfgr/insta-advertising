@@ -56,10 +56,7 @@ def get_users_from_comment(comment, all=True):
 
 def is_user_exist(bot, username):
     user_id = bot.get_user_id_from_username(username)
-    if user_id is not None:
-        return True
-    else:
-        return False
+    return user_id is not None
 
 
 def get_users_tagged_friends(bot, post_id):
