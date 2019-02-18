@@ -69,15 +69,14 @@ def get_users_tagged_friends(bot, post_id, number_of_friends_needed=2):
     list_of_users = []
     set_of_usernames = set()
     for comment in comments:
-        if not comment['user']['username'] in set_of_usernames:
-            users = get_users_from_comment(comment['text'])
-            users_exist = 0
-            for user in users:
-                if is_user_exist(bot, user):
-                    users_exist += 1
-            if users_exist >= number_of_friends_needed:
-                list_of_users.append(comment['user'])
-                set_of_usernames.add(comment['user']['username'])
+        if comment['user']['username'] in set_of_usernames:
+            continue
+        users = get_users_from_comment(comment['text'])
+        users_exist = sum([is_user_exist(bot, user) for user in users])
+        if users_exist < number_of_friends_needed:
+            continue
+        list_of_users.append(comment['user'])
+        set_of_usernames.add(comment['user']['username'])
     return list_of_users
 
 
