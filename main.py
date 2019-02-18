@@ -8,6 +8,7 @@ from pprint import pprint
 
 
 def main():
+    load_dotenv()
     bot = init_bot()
     link = get_link_from_arg()
     post_id = bot.get_media_id_from_link(link=link)
@@ -39,7 +40,6 @@ def get_author(link):
 
 
 def init_bot():
-    load_dotenv()
     LOGIN = os.getenv("LOGIN")
     PASSWORD = os.getenv('PASSWORD')
     bot = Bot()
